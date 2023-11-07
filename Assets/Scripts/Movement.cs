@@ -20,14 +20,11 @@ public class Movement : MonoBehaviour
 
     void Update()
     {
-        CheckMoveDirection();
-
         if (Input_Manager._INPUT_MANAGER.GetSouthButtonPressed() && isGrounded)
         {
             shouldJump = true;
         }
     }
-
 
     void FixedUpdate()
     {
@@ -51,30 +48,28 @@ public class Movement : MonoBehaviour
         Ray groundRay = new Ray(rayOrigin, Vector3.down);
 
         // For visual debugging in the Unity Scene view
-        Debug.DrawRay(rayOrigin, Vector3.down * groundCheckDistance, Color.red);
+        //Debug.DrawRay(rayOrigin, Vector3.down * groundCheckDistance, Color.red);
 
         // Check if the ray intersects with the ground within the given distance
         bool grounded = Physics.Raycast(groundRay, groundCheckDistance, groundLayer);
         return grounded;
     }
 
-    private void CheckMoveDirection()
-    {
-         
-    }
     private void MoveCharacter()
     {
+        // Check where does the player want to move using the input manager script
         bool moveRight = Input_Manager._INPUT_MANAGER.GetRightPressed();
         bool moveLeft = Input_Manager._INPUT_MANAGER.GetLeftPressed();
         bool moveUp = Input_Manager._INPUT_MANAGER.GetUpPressed();
         bool moveDown = Input_Manager._INPUT_MANAGER.GetDownPressed();
 
+        // This vector3 is the direction where the character shoud move
         moveDirection =
-            ((moveRight ? transform.right : (moveLeft ? -transform.right : new Vector3(0f, 0f, 0f))) +
-            new Vector3(0f, 0, 0f) +
-            (moveUp ? transform.forward : (moveDown ? -transform.forward : new Vector3(0f, 0f, 0f)))).normalized;
+            ((moveRight ? transform.right : (moveLeft ? -transform.right : new Vector3(0f, 0f, 0f))) +             //x
+            (moveUp ? transform.forward : (moveDown ? -transform.forward : new Vector3(0f, 0f, 0f)))).normalized;  //z
 
-        rb.velocity = moveDirection * moveSpeed;
+        // Moves the player to the right direction at the right speed, if the player is in the air he moves half the speed
+        rb.velocity = moveDirection * (isGrounded ? moveSpeed : moveSpeed * 0.5f) + new Vector3(0f, rb.velocity.y, 0f);
     }
 
     private void Jump()
