@@ -69,7 +69,7 @@ public class Movement : MonoBehaviour
             (moveUp ? transform.forward : (moveDown ? -transform.forward : new Vector3(0f, 0f, 0f)))).normalized;  //z
 
         // Moves the player to the right direction at the right speed, if the player is in the air he moves half the speed
-        rb.velocity = moveDirection * (isGrounded ? moveSpeed : moveSpeed * 0.5f) + new Vector3(0f, rb.velocity.y, 0f);
+        rb.velocity = isGrounded ? moveDirection * moveSpeed + new Vector3(0f, rb.velocity.y, 0f) : rb.velocity + moveDirection * moveSpeed * 0.02f;
     }
 
     private void Jump()
