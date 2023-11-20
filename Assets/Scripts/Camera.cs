@@ -22,8 +22,8 @@ public class CameraController : MonoBehaviour
     void Update()
     {
         // Get mouse movement from the Input_Manager
-        float mouseX = inputManager.MouseX() * sensitivity * Time.deltaTime;
-        float mouseY = inputManager.MouseY() * sensitivity * Time.deltaTime;
+        float mouseX = inputManager.GetMouseX() * sensitivity * Time.deltaTime;
+        float mouseY = inputManager.GetMouseY() * sensitivity * Time.deltaTime;
 
         // Adjust the vertical rotation of the camera based on mouseY
         rotationX -= mouseY;

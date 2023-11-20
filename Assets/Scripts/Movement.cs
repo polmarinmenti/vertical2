@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Movement : MonoBehaviour
 {
@@ -20,7 +21,7 @@ public class Movement : MonoBehaviour
 
     void Update()
     {
-        if (Input_Manager._INPUT_MANAGER.GetSouthButtonPressed() && isGrounded)
+        if (Input_Manager._INPUT_MANAGER.GetJump() && isGrounded)
         {
             shouldJump = true;
         }
@@ -68,8 +69,8 @@ public class Movement : MonoBehaviour
             ((moveRight ? transform.right : (moveLeft ? -transform.right : new Vector3(0f, 0f, 0f))) +             //x
             (moveUp ? transform.forward : (moveDown ? -transform.forward : new Vector3(0f, 0f, 0f)))).normalized;  //z
 
-        // Moves the player to the right direction at the right speed, if the player is in the air he moves half the speed
-        rb.velocity = isGrounded ? moveDirection * moveSpeed + new Vector3(0f, rb.velocity.y, 0f) : rb.velocity + moveDirection * moveSpeed * 0.05f;
+        // Moves the player to the right direction at the right speed, if the player is in the air he moves slower
+        rb.velocity = isGrounded ? moveDirection * moveSpeed + new Vector3(0f, rb.velocity.y, 0f) : rb.velocity + moveDirection * moveSpeed * 0.025f;
     }
 
     private void Jump()

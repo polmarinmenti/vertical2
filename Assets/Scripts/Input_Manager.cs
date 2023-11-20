@@ -23,6 +23,7 @@ public class Input_Manager : MonoBehaviour
             playerInputs = new PlayerInputActions();
             playerInputs.Character.Enable();
             playerInputs.Camera.Enable();
+            playerInputs.Gun.Enable();
 
             _INPUT_MANAGER = this;
             DontDestroyOnLoad(this.gameObject);
@@ -32,24 +33,28 @@ public class Input_Manager : MonoBehaviour
     {
         InputSystem.Update();
         timeSinceJumpPressed += Time.deltaTime;
+        Debug.Log(GetReload() == true);
     }
 
-    public float MouseX()
+    //Mouse
+
+    public float GetMouseX()
     {
         return playerInputs.Camera.MouseX.ReadValue<float>();
     }
-    public float MouseY()
+
+    public float GetMouseY()
     {
         return playerInputs.Camera.MouseY.ReadValue<float>();
     }
 
-    public bool GetSouthButtonPressed()
-    {
-        float oldValue = playerInputs.Character.Jump.ReadValue<float>();
-        bool jumpPressed = oldValue != 0f;
-        return jumpPressed;
-    }
 
+    //Character
+
+    public bool GetJump()
+    {
+        return playerInputs.Character.Jump.ReadValue<float>() != 0f;
+    }
 
     public bool GetUpPressed()
     {
@@ -75,9 +80,24 @@ public class Input_Manager : MonoBehaviour
         return moveInput.x < 0;
     }
 
+
+    //Gun
+
+    public bool GetShoot()
+    {
+        return playerInputs.Gun.Shoot.ReadValue<bool>();
+    }
+    
+    public bool GetReload()
+    {
+        return playerInputs.Gun.Reload.ReadValue<bool>();
+    }
+
+
     private void OnDisable()
     {
         playerInputs.Character.Disable();
-        playerInputs.Camera.Enable();
+        playerInputs.Camera.Disable();
+        playerInputs.Gun.Disable();
     }
 }

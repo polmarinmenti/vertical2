@@ -6573,7 +6573,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b072f6252ea16664f88845cd556247df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletsPerMag: 0
+  cam: {fileID: 963194227}
+  bulletsPerMag: 20
+  reloadTime: 1.5
 --- !u!1 &1804323841
 GameObject:
   m_ObjectHideFlags: 0
