@@ -33,7 +33,6 @@ public class Input_Manager : MonoBehaviour
     {
         InputSystem.Update();
         timeSinceJumpPressed += Time.deltaTime;
-        Debug.Log(GetReload() == true);
     }
 
     //Mouse
@@ -85,12 +84,12 @@ public class Input_Manager : MonoBehaviour
 
     public bool GetShoot()
     {
-        return playerInputs.Gun.Shoot.ReadValue<bool>();
+        return playerInputs.Gun.Shoot.triggered;
     }
     
     public bool GetReload()
     {
-        return playerInputs.Gun.Reload.ReadValue<bool>();
+        return playerInputs.Gun.Reload.triggered;
     }
 
 

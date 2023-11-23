@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class Gun_Weapon : MonoBehaviour
@@ -10,6 +11,8 @@ public class Gun_Weapon : MonoBehaviour
     private int bullets;
     [SerializeField] private float reloadTime = 1.5f;
     private bool isRecharging = false;
+
+    [SerializeField] private GameObject decalPrefab;
 
     void Start()
     {
@@ -25,9 +28,10 @@ public class Gun_Weapon : MonoBehaviour
             return;
         }
 
-        if (Input_Manager._INPUT_MANAGER.GetShoot() && !isRecharging)
+        if (Input_Manager._INPUT_MANAGER.GetShoot() && !isRecharging && bullets > 0)
         {
             Debug.Log("got disparar");
+            Debug.Log(bullets);
             Disparar();
         }
     }
@@ -35,7 +39,6 @@ public class Gun_Weapon : MonoBehaviour
     IEnumerator Recargar()
     {
         isRecharging = true;
-        Debug.Log("Recargando...");
         yield return new WaitForSeconds(reloadTime);
 
         bullets = bulletsPerMag;
@@ -49,7 +52,9 @@ public class Gun_Weapon : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(cam.transform.position, transform.forward, out hit))
         {
-            Debug.Log(hit.transform.name);
+            //Debug.Log(hit.transform.name);
+            GameObject decal = Instantiate(decalPrefab, hit.point + hit.normal * 0.01f, Quaternion.LookRotation(hit.normal) * Quaternion.Euler(90, 0, 0));
+            //decal.transform.SetParent(hit.collider.transform); // Opcional: Adjunta el decal al objeto impactado
         }
     }
 }
