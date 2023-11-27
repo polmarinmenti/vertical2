@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3734083551240419127}
   - component: {fileID: 6711413788544413226}
   - component: {fileID: 5289197721301153160}
+  - component: {fileID: 433172736635271837}
   m_Layer: 0
   m_Name: Decal
   m_TagString: Untagged
@@ -83,3 +84,16 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &433172736635271837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5375640996788800855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ecb73f933cde8a4dad9dd2628808ea7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lifeSpan: 10

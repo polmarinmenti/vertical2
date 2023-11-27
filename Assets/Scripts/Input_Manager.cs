@@ -52,7 +52,7 @@ public class Input_Manager : MonoBehaviour
 
     public bool GetJump()
     {
-        return playerInputs.Character.Jump.ReadValue<float>() != 0f;
+        return playerInputs.Character.Jump.triggered;
     }
 
     public bool GetUpPressed()
