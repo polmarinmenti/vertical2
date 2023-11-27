@@ -51,6 +51,8 @@ public class Gun_Weapon : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(cam.transform.position, transform.forward, out hit))
         {
+            //Debug.DrawRay(cam.transform.position, cam.transform.forward, UnityEngine.Color.green, 100f);
+
             GameObject decal = Instantiate(decalPrefab, hit.point + hit.normal * 0.01f, Quaternion.LookRotation(hit.normal) * Quaternion.Euler(90, 0, 0));
 
             // Verificar si el objeto impactado es el muro falso

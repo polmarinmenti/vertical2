@@ -2,9 +2,13 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.VisualScripting;
+using System.Drawing;
+using System.Collections;
 
 public class MineSweeperManager : MonoBehaviour
 {
+    public Camera cam;
+
     [SerializeField] private Transform tilePrefab;
     [SerializeField] private Transform gameHolder;
 
@@ -55,14 +59,18 @@ public class MineSweeperManager : MonoBehaviour
                 tile.gameManager = this;
             }
         }
+        FirstTileEmpty();
+    }
 
+    private void FirstTileEmpty()
+    {
         // Lanzar un rayo desde la posición de la cámara hacia adelante
         RaycastHit hit;
-        Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
-
-        if (Physics.Raycast(ray, out hit))
+        if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit))
         {
-            Tile tile = hit.collider.gameObject.GetComponent<Tile>();
+            Debug.DrawRay(cam.transform.position, cam.transform.forward, UnityEngine.Color.red, 100f);
+
+            Tile tile = hit.collider.GetComponent<Tile>();
             if (tile != null)
             {
                 MeshRenderer meshRenderer = hit.collider.gameObject.GetComponent<MeshRenderer>();
@@ -76,12 +84,17 @@ public class MineSweeperManager : MonoBehaviour
                     else
                     {
                         Debug.Log("El tile golpeado no está vacío");
+                        //CreateGameBoard(12, 12, 20);
                     }
+                }
+                else
+                {
+                    Debug.Log("El tile no tiene meshrenderer"); //esto no pasará nunca
                 }
             }
             else
             {
-                Debug.Log("El tile no existe¿?");
+                Debug.Log("No se ha detectado Tile");
             }
         }
         else

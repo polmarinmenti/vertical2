@@ -10074,7 +10074,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTransform: {fileID: 1176195406}
-  sensitivity: 50
+  sensitivity: 90
 --- !u!1 &974164542
 GameObject:
   m_ObjectHideFlags: 0
@@ -21516,6 +21516,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e959e24b71362f4585a0374a5126e02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cam: {fileID: 963194227}
   tilePrefab: {fileID: 6453188684652691747, guid: 5deec590010520d48837b650964a6665, type: 3}
   gameHolder: {fileID: 1908495183}
 --- !u!1 &1913562090
@@ -23203,7 +23204,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 33, y: 30}
+  m_SizeDelta: {x: 30, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2071983074
 MonoBehaviour:
