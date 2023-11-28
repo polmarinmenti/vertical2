@@ -59,17 +59,20 @@ public class MineSweeperManager : MonoBehaviour
                 tile.gameManager = this;
             }
         }
-        FirstTileEmpty();
+
+        StartCoroutine(ExecuteRaycastAfterDelay());
+        //FirstTileEmpty();
     }
 
+    // Se asegura de que el primer tile al que disparas esté vacío
     private void FirstTileEmpty()
     {
         // Lanzar un rayo desde la posición de la cámara hacia adelante
         RaycastHit hit;
+        Debug.DrawRay(cam.transform.position, cam.transform.forward, UnityEngine.Color.red, 100f);
+
         if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit))
         {
-            Debug.DrawRay(cam.transform.position, cam.transform.forward, UnityEngine.Color.red, 100f);
-
             Tile tile = hit.collider.GetComponent<Tile>();
             if (tile != null)
             {
@@ -79,17 +82,18 @@ public class MineSweeperManager : MonoBehaviour
                     // Comprobar si el material del MeshRenderer es igual a Tile.clickedMaterials[0]
                     if (meshRenderer.material == tile.clickedMaterials[0])
                     {
-                        Debug.Log("El tile golpeado está vacío");
+                        Debug.Log("El tile golpeado SÍ está vacío");
                     }
                     else
                     {
                         Debug.Log("El tile golpeado no está vacío");
-                        //CreateGameBoard(12, 12, 20);
+                        //ResetGameState();
+                        //StartCoroutine(RecreateGameBoard());
                     }
                 }
                 else
                 {
-                    Debug.Log("El tile no tiene meshrenderer"); //esto no pasará nunca
+                    Debug.Log("El tile no tiene meshrenderer"); // Esto no pasará nunca (en principio)
                 }
             }
             else
@@ -102,6 +106,28 @@ public class MineSweeperManager : MonoBehaviour
             Debug.Log("Raycast no ha impactado");
         }
     }
+
+    // Delay inventao temporal
+    IEnumerator ExecuteRaycastAfterDelay()
+    {
+        yield return new WaitForNextFrameUnit();
+        FirstTileEmpty();
+    }
+
+    IEnumerator RecreateGameBoard()
+    {
+        // Destruye las tiles actuales
+        foreach (Transform child in gameHolder)
+        {
+            Destroy(child.gameObject);
+        }
+        yield return null; // Espera hasta el próximo frame
+
+        // Crea nuevas tiles y configura el juego
+        CreateGameBoard(12, 12, 16);
+        // ResetGameState se llama dentro de CreateGameBoard después de instanciar las nuevas tiles
+    }
+
 
     public void ResetGameState()
     {
