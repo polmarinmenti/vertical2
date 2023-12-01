@@ -121,15 +121,15 @@ MonoBehaviour:
   unclickedMaterial: {fileID: 2100000, guid: 5c04d65d51c998d4e82d102322d9cd84, type: 2}
   flaggedMaterial: {fileID: 2100000, guid: 926e0816a92318d4883e90861d383831, type: 2}
   clickedMaterials:
-  - {fileID: 2100000, guid: 2cb0b6d3895de1f40b47b5cef5a2d19c, type: 2}
+  - {fileID: 2100000, guid: 774524632088a5640b08c66797a53b2a, type: 2}
   - {fileID: 2100000, guid: 36750b793595ca9459aea1b09a92f011, type: 2}
-  - {fileID: 2100000, guid: cb00956973166794ea5b17acfdfea387, type: 2}
-  - {fileID: 2100000, guid: b3eb5b4ca11e6fa488d19314574c52c8, type: 2}
-  - {fileID: 2100000, guid: 2db011875d7c9794b90fb2f280b017f6, type: 2}
-  - {fileID: 2100000, guid: b19ba60f62833e7458d8511d19e702a3, type: 2}
-  - {fileID: 2100000, guid: 425fd5e944c72da43a0c92a7e16e1a09, type: 2}
-  - {fileID: 2100000, guid: a3aaf034baa9d9e4b932bf0534d52acd, type: 2}
-  - {fileID: 2100000, guid: 23ec0300fee28724abf2eb6c323e8dfc, type: 2}
+  - {fileID: 2100000, guid: 5d9effa1fdf70764aa035d3477e685cf, type: 2}
+  - {fileID: 2100000, guid: 2c943de1ae7d331429a1039b4e80ec9c, type: 2}
+  - {fileID: 2100000, guid: a0dd8d8fc901fc34e953a8f114ff5a95, type: 2}
+  - {fileID: 2100000, guid: 11948906bda4b70478433c787180c950, type: 2}
+  - {fileID: 2100000, guid: 3f9907c8d4295e64fbc0ccd964f2e84c, type: 2}
+  - {fileID: 2100000, guid: 345560acb0c5a164790fcc668de08c07, type: 2}
+  - {fileID: 2100000, guid: 392f5e37fb336da48803903a49226d62, type: 2}
   mineMaterial: {fileID: 2100000, guid: cdf4ff07f33e62a4abc7ea4e78d23d41, type: 2}
   mineWrongMaterial: {fileID: 2100000, guid: b08b6cc000aaae44e8313824611fcbcf, type: 2}
   mineHitMaterial: {fileID: 2100000, guid: 36d70a3e7c855504b9389455fff057ab, type: 2}

@@ -2,7 +2,6 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.VisualScripting;
-using System.Drawing;
 using System.Collections;
 
 public class MineSweeperManager : MonoBehaviour
@@ -76,25 +75,19 @@ public class MineSweeperManager : MonoBehaviour
             Tile tile = hit.collider.GetComponent<Tile>();
             if (tile != null)
             {
-                MeshRenderer meshRenderer = hit.collider.gameObject.GetComponent<MeshRenderer>();
-                if (meshRenderer != null)
+                if (tile.mineCount == 0)
                 {
-                    // Comprobar si el material del MeshRenderer es igual a Tile.clickedMaterials[0]
-                    if (meshRenderer.material == tile.clickedMaterials[0])
-                    {
-                        Debug.Log("El tile golpeado SÍ está vacío");
-                    }
-                    else
-                    {
-                        Debug.Log("El tile golpeado no está vacío");
-                        //ResetGameState();
-                        //StartCoroutine(RecreateGameBoard());
-                    }
+                    Debug.Log("El tile golpeado SÍ está vacío");
+                    tile.ClickedTile();
                 }
                 else
                 {
-                    Debug.Log("El tile no tiene meshrenderer"); // Esto no pasará nunca (en principio)
+                    //Aquí, debería de resetearse el tablero
+                    Debug.Log("El tile golpeado no está vacío");
+                    CreateGameBoard(width, height, numMines);
+                    ResetGameState();
                 }
+
             }
             else
             {
@@ -124,7 +117,7 @@ public class MineSweeperManager : MonoBehaviour
         yield return null; // Espera hasta el próximo frame
 
         // Crea nuevas tiles y configura el juego
-        CreateGameBoard(12, 12, 16);
+        CreateGameBoard(width, height, numMines);
         // ResetGameState se llama dentro de CreateGameBoard después de instanciar las nuevas tiles
     }
 
