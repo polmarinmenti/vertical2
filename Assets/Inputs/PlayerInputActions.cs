@@ -114,6 +114,24 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": ""Press"",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Crouch"",
+                    ""type"": ""Button"",
+                    ""id"": ""9ba4c7b8-666e-4918-9793-549d0425589a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Sprint"",
+                    ""type"": ""Button"",
+                    ""id"": ""697c6420-dab3-41f9-96aa-b74a761333e1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -204,6 +222,28 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""02b6c76f-69d6-4345-82ca-598637b9a1f7"",
+                    ""path"": ""<Keyboard>/leftCtrl"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Crouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d6c1d1ec-d63b-478d-a7e4-9a835c9f227a"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Sprint"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -224,6 +264,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""name"": ""Reload"",
                     ""type"": ""Button"",
                     ""id"": ""5ebe2994-5c5b-4368-b8e9-eaddc38be678"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Paintball"",
+                    ""type"": ""Button"",
+                    ""id"": ""aadff143-ace1-48a9-81f9-4d2978743de5"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -252,6 +301,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Reload"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""928881c5-24c6-4541-8552-f2bb30c5f665"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Paintball"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -266,10 +326,13 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Character = asset.FindActionMap("Character", throwIfNotFound: true);
         m_Character_Move = m_Character.FindAction("Move", throwIfNotFound: true);
         m_Character_Jump = m_Character.FindAction("Jump", throwIfNotFound: true);
+        m_Character_Crouch = m_Character.FindAction("Crouch", throwIfNotFound: true);
+        m_Character_Sprint = m_Character.FindAction("Sprint", throwIfNotFound: true);
         // Gun
         m_Gun = asset.FindActionMap("Gun", throwIfNotFound: true);
         m_Gun_Shoot = m_Gun.FindAction("Shoot", throwIfNotFound: true);
         m_Gun_Reload = m_Gun.FindAction("Reload", throwIfNotFound: true);
+        m_Gun_Paintball = m_Gun.FindAction("Paintball", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -387,12 +450,16 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private List<ICharacterActions> m_CharacterActionsCallbackInterfaces = new List<ICharacterActions>();
     private readonly InputAction m_Character_Move;
     private readonly InputAction m_Character_Jump;
+    private readonly InputAction m_Character_Crouch;
+    private readonly InputAction m_Character_Sprint;
     public struct CharacterActions
     {
         private @PlayerInputActions m_Wrapper;
         public CharacterActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Character_Move;
         public InputAction @Jump => m_Wrapper.m_Character_Jump;
+        public InputAction @Crouch => m_Wrapper.m_Character_Crouch;
+        public InputAction @Sprint => m_Wrapper.m_Character_Sprint;
         public InputActionMap Get() { return m_Wrapper.m_Character; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -408,6 +475,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Jump.started += instance.OnJump;
             @Jump.performed += instance.OnJump;
             @Jump.canceled += instance.OnJump;
+            @Crouch.started += instance.OnCrouch;
+            @Crouch.performed += instance.OnCrouch;
+            @Crouch.canceled += instance.OnCrouch;
+            @Sprint.started += instance.OnSprint;
+            @Sprint.performed += instance.OnSprint;
+            @Sprint.canceled += instance.OnSprint;
         }
 
         private void UnregisterCallbacks(ICharacterActions instance)
@@ -418,6 +491,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Jump.started -= instance.OnJump;
             @Jump.performed -= instance.OnJump;
             @Jump.canceled -= instance.OnJump;
+            @Crouch.started -= instance.OnCrouch;
+            @Crouch.performed -= instance.OnCrouch;
+            @Crouch.canceled -= instance.OnCrouch;
+            @Sprint.started -= instance.OnSprint;
+            @Sprint.performed -= instance.OnSprint;
+            @Sprint.canceled -= instance.OnSprint;
         }
 
         public void RemoveCallbacks(ICharacterActions instance)
@@ -441,12 +520,14 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private List<IGunActions> m_GunActionsCallbackInterfaces = new List<IGunActions>();
     private readonly InputAction m_Gun_Shoot;
     private readonly InputAction m_Gun_Reload;
+    private readonly InputAction m_Gun_Paintball;
     public struct GunActions
     {
         private @PlayerInputActions m_Wrapper;
         public GunActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Shoot => m_Wrapper.m_Gun_Shoot;
         public InputAction @Reload => m_Wrapper.m_Gun_Reload;
+        public InputAction @Paintball => m_Wrapper.m_Gun_Paintball;
         public InputActionMap Get() { return m_Wrapper.m_Gun; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -462,6 +543,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Reload.started += instance.OnReload;
             @Reload.performed += instance.OnReload;
             @Reload.canceled += instance.OnReload;
+            @Paintball.started += instance.OnPaintball;
+            @Paintball.performed += instance.OnPaintball;
+            @Paintball.canceled += instance.OnPaintball;
         }
 
         private void UnregisterCallbacks(IGunActions instance)
@@ -472,6 +556,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Reload.started -= instance.OnReload;
             @Reload.performed -= instance.OnReload;
             @Reload.canceled -= instance.OnReload;
+            @Paintball.started -= instance.OnPaintball;
+            @Paintball.performed -= instance.OnPaintball;
+            @Paintball.canceled -= instance.OnPaintball;
         }
 
         public void RemoveCallbacks(IGunActions instance)
@@ -498,10 +585,13 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     {
         void OnMove(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+        void OnCrouch(InputAction.CallbackContext context);
+        void OnSprint(InputAction.CallbackContext context);
     }
     public interface IGunActions
     {
         void OnShoot(InputAction.CallbackContext context);
         void OnReload(InputAction.CallbackContext context);
+        void OnPaintball(InputAction.CallbackContext context);
     }
 }

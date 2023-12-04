@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 
@@ -10,7 +11,6 @@ public class Input_Manager : MonoBehaviour
     private PlayerInputActions playerInputs;
     private float timeSinceJumpPressed = 0f;
     private Vector2 leftAxisValue = Vector2.zero;
-
 
     private void Awake()
     {
@@ -79,6 +79,16 @@ public class Input_Manager : MonoBehaviour
         return moveInput.x < 0;
     }
 
+    public bool GetCrouch()
+    {
+        return playerInputs.Character.Crouch.IsPressed();
+    }
+    
+    public bool GetSprint()
+    {
+        return playerInputs.Character.Sprint.IsPressed();
+    }
+
 
     //Gun
 
@@ -90,6 +100,11 @@ public class Input_Manager : MonoBehaviour
     public bool GetReload()
     {
         return playerInputs.Gun.Reload.triggered;
+    }
+
+    public bool GetPaintball()
+    {
+       return playerInputs.Gun.Paintball.triggered;
     }
 
 

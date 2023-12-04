@@ -14,7 +14,7 @@ public class FakeTiles : MonoBehaviour
         GetComponent<Collider>().enabled = false;
 
         // Llamar a CreateGameBoard para crear el juego real
-        mineSweeperManager.CreateGameBoard(12, 12, 12);
+        mineSweeperManager.CreateGameBoard(12, 12, 14);
         mineSweeperManager.ResetGameState();
 
         // Destruir el muro falso

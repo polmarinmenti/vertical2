@@ -5,7 +5,9 @@ public class Movement : MonoBehaviour
 {
     private Rigidbody rb;
 
-    [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private float walkSpeed = 4f;
+    [SerializeField] private float sprintSpeed = 7f;
+    private float moveSpeed;
     [SerializeField] private float jumpForce = 5f;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float groundCheckDistance = 0.1f;
@@ -14,9 +16,19 @@ public class Movement : MonoBehaviour
     private bool shouldJump = false;
     private bool isGrounded = false;
 
+    [SerializeField] private Transform cameraTransform; // referencia a la transformada de la cámara
+    private float crouchHeight = 1.5f; // altura del collider cuando el jugador se agacha
+    private float standHeight = 2f; // altura normal del collider
+    private float crouchCameraOffset = -0.5f; // cuánto se baja la cámara al agacharse
+
+    private CapsuleCollider capsuleCollider;
+    private Vector3 cameraStandPosition; // posición original de la cámara
+
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        capsuleCollider = GetComponent<CapsuleCollider>();
+        cameraStandPosition = cameraTransform.localPosition;
     }
 
     void Update()
@@ -24,6 +36,24 @@ public class Movement : MonoBehaviour
         if (Input_Manager._INPUT_MANAGER.GetJump() && isGrounded)
         {
             shouldJump = true;
+        }
+
+        if (Input_Manager._INPUT_MANAGER.GetCrouch())
+        {
+            Crouch();
+        }
+        else
+        {
+            Stand();
+        }
+
+        if (Input_Manager._INPUT_MANAGER.GetSprint())
+        {
+            moveSpeed = sprintSpeed;
+        }
+        else
+        {
+            moveSpeed = walkSpeed;
         }
     }
 
@@ -38,6 +68,16 @@ public class Movement : MonoBehaviour
             Jump();
             shouldJump = false;
         }
+    }
+
+    private void Crouch()
+    {
+        capsuleCollider.height = crouchHeight;
+    }
+
+    private void Stand()
+    {
+        capsuleCollider.height = standHeight;
     }
 
     // Checks if the character is on the ground

@@ -25,7 +25,7 @@ public class Tile : MonoBehaviour
         meshRenderer.material = unclickedMaterial;
     }
 
-    private void ToggleFlag()
+    public void ToggleFlag()
     {
         flagged = !flagged;
         meshRenderer.material = flagged ? flaggedMaterial : unclickedMaterial;

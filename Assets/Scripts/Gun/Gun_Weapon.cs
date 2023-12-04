@@ -14,6 +14,7 @@ public class Gun_Weapon : MonoBehaviour
     private bool isRecharging = false;
 
     [SerializeField] private GameObject decalPrefab;
+    [SerializeField] private GameObject paintballPrefab;
 
     void Start()
     {
@@ -30,8 +31,13 @@ public class Gun_Weapon : MonoBehaviour
 
         if (Input_Manager._INPUT_MANAGER.GetShoot() && !isRecharging && bullets > 0)
         {
-            Debug.Log(bullets);
+            //Debug.Log(bullets);
             Disparar();
+        }
+        
+        if (Input_Manager._INPUT_MANAGER.GetPaintball())
+        {
+            Paintball();
         }
     }
 
@@ -68,6 +74,33 @@ public class Gun_Weapon : MonoBehaviour
                 if (tile != null)
                 {
                     tile.ClickedTile();
+                }
+            }
+        }
+    }
+
+    void Paintball()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(cam.transform.position, transform.forward, out hit))
+        {
+            //Debug.DrawRay(cam.transform.position, cam.transform.forward, UnityEngine.Color.green, 100f);
+
+            GameObject paintball = Instantiate(paintballPrefab, hit.point + hit.normal * 0.01f, Quaternion.LookRotation(hit.normal) * Quaternion.Euler(90, 0, 0));
+
+            // Verificar si el objeto impactado es el muro falso
+            FakeTiles fakeTiles = hit.collider.GetComponent<FakeTiles>();
+            if (fakeTiles != null)
+            {
+                fakeTiles.StartGame();
+            }
+            else
+            {
+                // Manejar otros tipos de impactos, como golpear un Tile
+                Tile tile = hit.collider.GetComponent<Tile>();
+                if (tile != null)
+                {
+                    tile.ToggleFlag();
                 }
             }
         }

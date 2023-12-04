@@ -75,15 +75,15 @@ public class MineSweeperManager : MonoBehaviour
             Tile tile = hit.collider.GetComponent<Tile>();
             if (tile != null)
             {
-                if (tile.mineCount == 0)
+                if (tile.mineCount == 0 && !tile.isMine)
                 {
-                    Debug.Log("El tile golpeado SÍ está vacío");
+                    //Debug.Log("El tile golpeado SÍ está vacío");
                     tile.ClickedTile();
                 }
                 else
                 {
                     //Aquí, debería de resetearse el tablero
-                    Debug.Log("El tile golpeado no está vacío");
+                    //Debug.Log("El tile golpeado no está vacío");
                     CreateGameBoard(width, height, numMines);
                     ResetGameState();
                 }
