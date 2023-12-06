@@ -10474,7 +10474,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 945311808}
   m_LocalRotation: {x: -0.70710677, y: 0, z: 0, w: -0.70710677}
-  m_LocalPosition: {x: -1, y: -5.448, z: 3.66}
+  m_LocalPosition: {x: -1, y: -5.448, z: 3.638}
   m_LocalScale: {x: 0.10000002, y: 4, z: 0.09999995}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10591,7 +10591,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.54509807, g: 0.54509807, b: 0.54509807, a: 0}
+  m_BackGroundColor: {r: 1, g: 1, b: 1, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -21744,7 +21744,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1963009250}
   m_LocalRotation: {x: -0.70710677, y: 0, z: 0, w: -0.70710677}
-  m_LocalPosition: {x: 1.0079925, y: -5.448, z: 3.6600003}
+  m_LocalPosition: {x: 1.0079925, y: -5.448, z: 3.638}
   m_LocalScale: {x: 0.10000002, y: 4, z: 0.09999995}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -21986,7 +21986,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!224 &1996460529
 RectTransform:
@@ -22571,7 +22571,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2073066503}
   m_LocalRotation: {x: -0.70710677, y: 0, z: 0, w: -0.70710677}
-  m_LocalPosition: {x: -2.9920063, y: -5.448, z: 3.6599998}
+  m_LocalPosition: {x: -3, y: -5.448, z: 3.638}
   m_LocalScale: {x: 0.10000002, y: 4, z: 0.09999995}
   m_ConstrainProportionsScale: 0
   m_Children: []

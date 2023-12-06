@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Gun_Weapon : MonoBehaviour
 {
-    public Camera cam;
+    public GameObject cam;
 
     [SerializeField] private int bulletsPerMag;
     private int bullets;
@@ -55,7 +55,7 @@ public class Gun_Weapon : MonoBehaviour
         bullets--;
 
         RaycastHit hit;
-        if (Physics.Raycast(cam.transform.position, transform.forward, out hit))
+        if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit))
         {
             //Debug.DrawRay(cam.transform.position, cam.transform.forward, UnityEngine.Color.green, 100f);
 

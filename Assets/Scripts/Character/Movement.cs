@@ -11,6 +11,8 @@ public class Movement : MonoBehaviour
     [SerializeField] private float jumpForce = 5f;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float groundCheckDistance = 0.1f;
+    [SerializeField] private float customDrag; //2
+    [SerializeField] private float minHeightAboveGround = 0.1f;
 
     private Vector3 moveDirection;
     private bool shouldJump = false;
@@ -59,6 +61,8 @@ public class Movement : MonoBehaviour
 
     void FixedUpdate()
     {
+        //AdjustHeight();
+
         isGrounded = CheckGround();
 
         MoveCharacter();
@@ -68,6 +72,33 @@ public class Movement : MonoBehaviour
             Jump();
             shouldJump = false;
         }
+
+        if (!CheckGround())
+        {
+            ApplyCustomDrag();
+        }
+    }
+
+    //private void AdjustHeight()
+    //{
+    //    RaycastHit hit;
+    //    if (Physics.Raycast(transform.position, Vector3.down, out hit))
+    //    {
+    //        float distanceToGround = hit.distance;
+    //        if (distanceToGround < minHeightAboveGround)
+    //        {
+    //            transform.position = new Vector3(transform.position.x, transform.position.y + (minHeightAboveGround - distanceToGround), transform.position.z);
+    //        }
+    //    }
+    //}
+
+    private void ApplyCustomDrag()
+    {
+        Vector3 velocity = rb.velocity;
+        velocity.x /= 1 + customDrag * Time.fixedDeltaTime;
+        velocity.z /= 1 + customDrag * Time.fixedDeltaTime;
+
+        rb.velocity = velocity;
     }
 
     private void Crouch()
