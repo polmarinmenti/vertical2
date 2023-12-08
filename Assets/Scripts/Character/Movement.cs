@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class Movement : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class Movement : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float groundCheckDistance = 0.1f;
     [SerializeField] private float customDrag; //2
-    [SerializeField] private float minHeightAboveGround = 0.1f;
+    //[SerializeField] private float minHeightAboveGround = 0.1f;
 
     private Vector3 moveDirection;
     private bool shouldJump = false;
@@ -21,7 +22,7 @@ public class Movement : MonoBehaviour
     [SerializeField] private Transform cameraTransform; // referencia a la transformada de la cámara
     private float crouchHeight = 1.5f; // altura del collider cuando el jugador se agacha
     private float standHeight = 2f; // altura normal del collider
-    private float crouchCameraOffset = -0.5f; // cuánto se baja la cámara al agacharse
+    //private float crouchCameraOffset = -0.5f; // cuánto se baja la cámara al agacharse
 
     private CapsuleCollider capsuleCollider;
     private Vector3 cameraStandPosition; // posición original de la cámara
@@ -35,6 +36,11 @@ public class Movement : MonoBehaviour
 
     void Update()
     {
+        //if (Input_Manager._INPUT_MANAGER.GetRestart())
+        //{
+        //    RestartGame();
+        //}
+
         if (Input_Manager._INPUT_MANAGER.GetJump() && isGrounded)
         {
             shouldJump = true;
@@ -90,6 +96,12 @@ public class Movement : MonoBehaviour
     //            transform.position = new Vector3(transform.position.x, transform.position.y + (minHeightAboveGround - distanceToGround), transform.position.z);
     //        }
     //    }
+    //}
+
+    //public void RestartGame()
+    //{
+    //    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    //    Debug.Log("coña?");
     //}
 
     private void ApplyCustomDrag()

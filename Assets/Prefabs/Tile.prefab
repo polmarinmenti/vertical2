@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 803310105494346561}
   - component: {fileID: 2350768765395198621}
   - component: {fileID: 1560826988603360287}
+  - component: {fileID: 3258998985989101630}
   m_Layer: 3
   m_Name: Tile
   m_TagString: Untagged
@@ -130,7 +131,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 3f9907c8d4295e64fbc0ccd964f2e84c, type: 2}
   - {fileID: 2100000, guid: 345560acb0c5a164790fcc668de08c07, type: 2}
   - {fileID: 2100000, guid: 392f5e37fb336da48803903a49226d62, type: 2}
-  mineMaterial: {fileID: 2100000, guid: cdf4ff07f33e62a4abc7ea4e78d23d41, type: 2}
+  mineMaterial: {fileID: 2100000, guid: 36d70a3e7c855504b9389455fff057ab, type: 2}
   mineWrongMaterial: {fileID: 2100000, guid: b08b6cc000aaae44e8313824611fcbcf, type: 2}
   mineHitMaterial: {fileID: 2100000, guid: 36d70a3e7c855504b9389455fff057ab, type: 2}
   gameManager: {fileID: 0}
@@ -138,3 +139,30 @@ MonoBehaviour:
   active: 1
   isMine: 0
   mineCount: 0
+--- !u!54 &3258998985989101630
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8360089071740709663}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0

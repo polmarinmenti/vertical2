@@ -261,18 +261,18 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Reload"",
+                    ""name"": ""Paintball"",
                     ""type"": ""Button"",
-                    ""id"": ""5ebe2994-5c5b-4368-b8e9-eaddc38be678"",
+                    ""id"": ""aadff143-ace1-48a9-81f9-4d2978743de5"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Paintball"",
+                    ""name"": ""Teleport"",
                     ""type"": ""Button"",
-                    ""id"": ""aadff143-ace1-48a9-81f9-4d2978743de5"",
+                    ""id"": ""4964a118-ae46-43c4-a7e9-d1db1a502db2"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -293,23 +293,71 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""0f0cbef9-8533-49c2-831a-22d8694ba73f"",
-                    ""path"": ""<Keyboard>/r"",
-                    ""interactions"": ""Press"",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Reload"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""928881c5-24c6-4541-8552-f2bb30c5f665"",
                     ""path"": ""<Mouse>/rightButton"",
                     ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Paintball"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6e68c587-600b-4a96-8fb6-192352872060"",
+                    ""path"": ""<Mouse>/middleButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Teleport"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Game"",
+            ""id"": ""049bfb14-ceb9-4d68-90fa-16372d23f0fb"",
+            ""actions"": [
+                {
+                    ""name"": ""Restart"",
+                    ""type"": ""Button"",
+                    ""id"": ""c5e00f86-6c88-4b2f-9f85-20db79d57a21"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Escape"",
+                    ""type"": ""Button"",
+                    ""id"": ""d3c45818-a354-4fa2-bf3d-af6c638fc9a7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""e12ceadc-6650-4a09-ae3c-e1902be9fc24"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Restart"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b6e4cfad-6a88-42a3-ae91-7b9f2852e56f"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Escape"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -331,8 +379,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         // Gun
         m_Gun = asset.FindActionMap("Gun", throwIfNotFound: true);
         m_Gun_Shoot = m_Gun.FindAction("Shoot", throwIfNotFound: true);
-        m_Gun_Reload = m_Gun.FindAction("Reload", throwIfNotFound: true);
         m_Gun_Paintball = m_Gun.FindAction("Paintball", throwIfNotFound: true);
+        m_Gun_Teleport = m_Gun.FindAction("Teleport", throwIfNotFound: true);
+        // Game
+        m_Game = asset.FindActionMap("Game", throwIfNotFound: true);
+        m_Game_Restart = m_Game.FindAction("Restart", throwIfNotFound: true);
+        m_Game_Escape = m_Game.FindAction("Escape", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -519,15 +571,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Gun;
     private List<IGunActions> m_GunActionsCallbackInterfaces = new List<IGunActions>();
     private readonly InputAction m_Gun_Shoot;
-    private readonly InputAction m_Gun_Reload;
     private readonly InputAction m_Gun_Paintball;
+    private readonly InputAction m_Gun_Teleport;
     public struct GunActions
     {
         private @PlayerInputActions m_Wrapper;
         public GunActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Shoot => m_Wrapper.m_Gun_Shoot;
-        public InputAction @Reload => m_Wrapper.m_Gun_Reload;
         public InputAction @Paintball => m_Wrapper.m_Gun_Paintball;
+        public InputAction @Teleport => m_Wrapper.m_Gun_Teleport;
         public InputActionMap Get() { return m_Wrapper.m_Gun; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -540,12 +592,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Shoot.started += instance.OnShoot;
             @Shoot.performed += instance.OnShoot;
             @Shoot.canceled += instance.OnShoot;
-            @Reload.started += instance.OnReload;
-            @Reload.performed += instance.OnReload;
-            @Reload.canceled += instance.OnReload;
             @Paintball.started += instance.OnPaintball;
             @Paintball.performed += instance.OnPaintball;
             @Paintball.canceled += instance.OnPaintball;
+            @Teleport.started += instance.OnTeleport;
+            @Teleport.performed += instance.OnTeleport;
+            @Teleport.canceled += instance.OnTeleport;
         }
 
         private void UnregisterCallbacks(IGunActions instance)
@@ -553,12 +605,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Shoot.started -= instance.OnShoot;
             @Shoot.performed -= instance.OnShoot;
             @Shoot.canceled -= instance.OnShoot;
-            @Reload.started -= instance.OnReload;
-            @Reload.performed -= instance.OnReload;
-            @Reload.canceled -= instance.OnReload;
             @Paintball.started -= instance.OnPaintball;
             @Paintball.performed -= instance.OnPaintball;
             @Paintball.canceled -= instance.OnPaintball;
+            @Teleport.started -= instance.OnTeleport;
+            @Teleport.performed -= instance.OnTeleport;
+            @Teleport.canceled -= instance.OnTeleport;
         }
 
         public void RemoveCallbacks(IGunActions instance)
@@ -576,6 +628,60 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         }
     }
     public GunActions @Gun => new GunActions(this);
+
+    // Game
+    private readonly InputActionMap m_Game;
+    private List<IGameActions> m_GameActionsCallbackInterfaces = new List<IGameActions>();
+    private readonly InputAction m_Game_Restart;
+    private readonly InputAction m_Game_Escape;
+    public struct GameActions
+    {
+        private @PlayerInputActions m_Wrapper;
+        public GameActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Restart => m_Wrapper.m_Game_Restart;
+        public InputAction @Escape => m_Wrapper.m_Game_Escape;
+        public InputActionMap Get() { return m_Wrapper.m_Game; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(GameActions set) { return set.Get(); }
+        public void AddCallbacks(IGameActions instance)
+        {
+            if (instance == null || m_Wrapper.m_GameActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_GameActionsCallbackInterfaces.Add(instance);
+            @Restart.started += instance.OnRestart;
+            @Restart.performed += instance.OnRestart;
+            @Restart.canceled += instance.OnRestart;
+            @Escape.started += instance.OnEscape;
+            @Escape.performed += instance.OnEscape;
+            @Escape.canceled += instance.OnEscape;
+        }
+
+        private void UnregisterCallbacks(IGameActions instance)
+        {
+            @Restart.started -= instance.OnRestart;
+            @Restart.performed -= instance.OnRestart;
+            @Restart.canceled -= instance.OnRestart;
+            @Escape.started -= instance.OnEscape;
+            @Escape.performed -= instance.OnEscape;
+            @Escape.canceled -= instance.OnEscape;
+        }
+
+        public void RemoveCallbacks(IGameActions instance)
+        {
+            if (m_Wrapper.m_GameActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IGameActions instance)
+        {
+            foreach (var item in m_Wrapper.m_GameActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_GameActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public GameActions @Game => new GameActions(this);
     public interface ICameraActions
     {
         void OnMouseX(InputAction.CallbackContext context);
@@ -591,7 +697,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     public interface IGunActions
     {
         void OnShoot(InputAction.CallbackContext context);
-        void OnReload(InputAction.CallbackContext context);
         void OnPaintball(InputAction.CallbackContext context);
+        void OnTeleport(InputAction.CallbackContext context);
+    }
+    public interface IGameActions
+    {
+        void OnRestart(InputAction.CallbackContext context);
+        void OnEscape(InputAction.CallbackContext context);
     }
 }

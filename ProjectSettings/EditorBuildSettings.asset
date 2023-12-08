@@ -9,6 +9,21 @@ EditorBuildSettings:
     path: Assets/Scenes/menu.unity
     guid: 3f10dbedbe7d7514391c102234edb2af
   - enabled: 1
+    path: Assets/Scenes/lvl1.unity
+    guid: 623136af4354cbd4ea56762e6a5dffef
+  - enabled: 1
+    path: Assets/Scenes/lvl2.unity
+    guid: ef6818ec91ecd3348941630e12f07718
+  - enabled: 1
+    path: Assets/Scenes/lvl3.unity
+    guid: 7738228191322ee45b9af7333dc5ac7a
+  - enabled: 1
+    path: Assets/Scenes/Credits.unity
+    guid: bc289193e40646e4aa28d4382782ca3a
+  - enabled: 1
+    path: Assets/Scenes/Options.unity
+    guid: 0ad516fd0ea0b8343abf78cb725beef0
+  - enabled: 0
     path: Assets/Scenes/gym.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects:

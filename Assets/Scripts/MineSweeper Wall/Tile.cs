@@ -25,6 +25,14 @@ public class Tile : MonoBehaviour
         meshRenderer.material = unclickedMaterial;
     }
 
+    private void FixedUpdate()
+    {
+        if (flagged)
+        {
+            gameManager.CheckAndUnrootMines(this); // esto es mega nazi pero no tengo tiempo, Dios perdóname
+        }
+    }
+
     public void ToggleFlag()
     {
         flagged = !flagged;

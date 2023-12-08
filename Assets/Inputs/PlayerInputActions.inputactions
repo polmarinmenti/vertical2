@@ -239,18 +239,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Reload",
+                    "name": "Paintball",
                     "type": "Button",
-                    "id": "5ebe2994-5c5b-4368-b8e9-eaddc38be678",
+                    "id": "aadff143-ace1-48a9-81f9-4d2978743de5",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Paintball",
+                    "name": "Teleport",
                     "type": "Button",
-                    "id": "aadff143-ace1-48a9-81f9-4d2978743de5",
+                    "id": "4964a118-ae46-43c4-a7e9-d1db1a502db2",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -271,23 +271,71 @@
                 },
                 {
                     "name": "",
-                    "id": "0f0cbef9-8533-49c2-831a-22d8694ba73f",
-                    "path": "<Keyboard>/r",
-                    "interactions": "Press",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Reload",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "928881c5-24c6-4541-8552-f2bb30c5f665",
                     "path": "<Mouse>/rightButton",
                     "interactions": "Press",
                     "processors": "",
                     "groups": "",
                     "action": "Paintball",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6e68c587-600b-4a96-8fb6-192352872060",
+                    "path": "<Mouse>/middleButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Teleport",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Game",
+            "id": "049bfb14-ceb9-4d68-90fa-16372d23f0fb",
+            "actions": [
+                {
+                    "name": "Restart",
+                    "type": "Button",
+                    "id": "c5e00f86-6c88-4b2f-9f85-20db79d57a21",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Escape",
+                    "type": "Button",
+                    "id": "d3c45818-a354-4fa2-bf3d-af6c638fc9a7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "e12ceadc-6650-4a09-ae3c-e1902be9fc24",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Restart",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b6e4cfad-6a88-42a3-ae91-7b9f2852e56f",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Escape",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

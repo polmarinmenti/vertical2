@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.VisualScripting;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class MineSweeperManager : MonoBehaviour
 {
@@ -208,7 +209,7 @@ public class MineSweeperManager : MonoBehaviour
 
     public void GameOver()
     {
-        
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void CheckGameOver()
@@ -254,4 +255,48 @@ public class MineSweeperManager : MonoBehaviour
             ClickNeighbours(tile);
         }
     }
+
+    public void CheckAndUnrootMines(Tile flaggedTile)
+    {
+        // Verificar si el tile flagged es una mina
+        if (!flaggedTile.isMine || !flaggedTile.flagged)
+        {
+            return; // Si no es una mina o no está flagged, no hacer nada
+        }
+
+        // Inicializar una bandera para seguir el estado de los vecinos
+        bool allNeighborsUnrooted = true;
+
+        // Obtener los índices de los vecinos y revisar cada uno
+        foreach (int neighborIndex in GetNeighbours(tiles.IndexOf(flaggedTile)))
+        {
+            Tile neighborTile = tiles[neighborIndex];
+
+            // Verificar si el vecino está activo (no clickeado) y no está flagged
+            if (neighborTile.active && !neighborTile.flagged)
+            {
+                allNeighborsUnrooted = false; // Si encuentra un vecino no clickeado, marcar la bandera como false
+                break; // Salir del bucle, ya que se encontró un vecino que no cumple la condición
+            }
+
+            // Verificar si el vecino está flagged pero no es una mina
+            if (neighborTile.flagged && !neighborTile.isMine)
+            {
+                allNeighborsUnrooted = false; // Si encuentra un tile flagged incorrectamente, marcar la bandera como false
+                break; // Salir del bucle por la misma razón
+            }
+        }
+
+        // Si todos los vecinos están unrooted (clickeados o flagged correctamente)
+        if (allNeighborsUnrooted)
+        {
+            //Debug.Log("unrooted"); // Mostrar mensaje en el log
+            flaggedTile.isMine = false; // Cambiar el estado del tile para que ya no sea una mina
+
+            Rigidbody tileRigidbody = flaggedTile.GetComponent<Rigidbody>();
+            tileRigidbody.isKinematic = false;
+            tileRigidbody.useGravity = true;
+        }
+    }
+
 }

@@ -24,6 +24,7 @@ public class Input_Manager : MonoBehaviour
             playerInputs.Character.Enable();
             playerInputs.Camera.Enable();
             playerInputs.Gun.Enable();
+            playerInputs.Game.Enable();
 
             _INPUT_MANAGER = this;
             DontDestroyOnLoad(this.gameObject);
@@ -97,14 +98,19 @@ public class Input_Manager : MonoBehaviour
         return playerInputs.Gun.Shoot.triggered;
     }
     
-    public bool GetReload()
-    {
-        return playerInputs.Gun.Reload.triggered;
-    }
+    //public bool GetReload()
+    //{
+    //    return playerInputs.Gun.Reload.triggered;
+    //}
 
     public bool GetPaintball()
     {
        return playerInputs.Gun.Paintball.triggered;
+    }
+
+    public bool GetTeleport()
+    {
+        return playerInputs.Gun.Teleport.triggered;
     }
 
 
@@ -113,5 +119,14 @@ public class Input_Manager : MonoBehaviour
         playerInputs.Character.Disable();
         playerInputs.Camera.Disable();
         playerInputs.Gun.Disable();
+        playerInputs.Game.Disable();
+    }
+
+
+    //Game
+
+    public bool GetRestart()
+    {
+        return playerInputs.Game.Restart.triggered;
     }
 }
